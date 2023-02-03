@@ -32,7 +32,7 @@ func Cors() gin.HandlerFunc {
 			//允许浏览器发送的头
 			c.Header("Access-Control-Allow-Headers", "Content-Type")
 			//允许浏览器拿到的头
-			c.Header("Access-Control-Expose-Headers", "Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Cache-Control, Content-Language, Content-Type")
+			c.Header("Access-Control-Expose-Headers", "")
 			//是否允许cookies, authorization headers 或 TLS client certificates
 			c.Header("Access-Control-Allow-Credentials", "true")
 		}
