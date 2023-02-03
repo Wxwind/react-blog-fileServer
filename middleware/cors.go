@@ -35,7 +35,6 @@ func Cors() gin.HandlerFunc {
 			c.Header("Access-Control-Expose-Headers", "Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Cache-Control, Content-Language, Content-Type")
 			//是否允许cookies, authorization headers 或 TLS client certificates
 			c.Header("Access-Control-Allow-Credentials", "true")
-			c.Set("content-type", "application/json")
 		}
 
 		//是非简单请求的预检请求，直接返回204，不做后续处理
