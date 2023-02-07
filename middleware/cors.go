@@ -8,6 +8,8 @@ import (
 var allowOrigins = []string{
 	"https://api.wxwind.top",
 	"https://www.wxwind.top",
+	"https://admin.wxwind.top",
+	"http://localhost:5174",
 }
 
 func IsContain[T string | int](items []T, item T) bool {
@@ -30,7 +32,7 @@ func Cors() gin.HandlerFunc {
 			c.Header("Access-Control-Allow-Origin", origin)
 			c.Header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, UPDATE")
 			//允许浏览器发送的头
-			c.Header("Access-Control-Allow-Headers", "Content-Type")
+			c.Header("Access-Control-Allow-Headers", "x-requested-with")
 			//允许浏览器拿到的头
 			c.Header("Access-Control-Expose-Headers", "")
 			//是否允许cookies, authorization headers 或 TLS client certificates

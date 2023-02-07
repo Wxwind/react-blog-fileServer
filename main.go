@@ -20,9 +20,7 @@ var (
 )
 
 type BindFile struct {
-	Name  string                `form:"name" binding:"required"`
-	Email string                `form:"email" binding:"required"`
-	File  *multipart.FileHeader `form:"file" binding:"required"`
+	File *multipart.FileHeader `form:"file" binding:"required"`
 }
 
 func shutdownServer(server *http.Server, logger *log.Logger, quit <-chan os.Signal, done chan<- bool) {
@@ -54,7 +52,7 @@ func main() {
 	router.Use(middleware.Cors())
 
 	router.StaticFS("/static", http.Dir("assets/"))
-	router.POST("/upload", func(c *gin.Context) {
+	router.POST("/upload/markdown", func(c *gin.Context) {
 		var bindFile BindFile
 
 		// Bind file
@@ -65,13 +63,11 @@ func main() {
 
 		// Save uploaded file
 		file := bindFile.File
-		dst := filepath.Base(file.Filename)
+		dst := "assets/markdown/" + filepath.Base(file.Filename)
 		if err := c.SaveUploadedFile(file, dst); err != nil {
 			c.String(http.StatusBadRequest, fmt.Sprintf("upload file err: %s", err.Error()))
 			return
 		}
-
-		c.String(http.StatusOK, fmt.Sprintf("File %s uploaded successfully with fields name=%s and email=%s.", file.Filename, bindFile.Name, bindFile.Email))
 	})
 
 	server := &http.Server{
